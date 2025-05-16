@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="save_user.php" method="POST">
+        <label for="">Username</label>
+        <input type="text" name="username" id="username" required>
+        <label for="">Password</label>
+        <input type="password" name="password" id="password" required>
+        <input type="submit" value="Submit">
+    </form>
+
+    <table id="users" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="user-body"></tbody>
+    </table>
+
+    <script>
+        function fetchUsers(){
+            fetch("select.php")
+            .then(response => response.json())
+            .then(users => {
+                let userBody = document.getElementById("user-body");
+                userBody.innerHTML = ""; // Clear existing rows
+                users.forEach(user => {
+                    let row = document.createElement("tr");
+                    row.innerHTML = `<td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.password}</td>
+                    <td>
+                        <button onclick="deleteUser(${user.id})">Delete</button>
+                        <button onclick="editUser(${user.id})">Edit</button>
+                    </td>
+                    `;
+                    userBody.appendChild(row);
+                });
+            })
+            .catch()
+        }
+        function deleteUser(id){
+            let ans = confirm("Are you sure you want to delete this user?");
+            if(ans){
+                fetch(`delete.php?id=${id}`, {
+                    method: "DELETE"
+                })
+                .then(response => response.json())
+                .then(status => {fetchUsers()})
+            }
+        }
+        function editUser(id){
+
+        }
+        fetchUsers();
+    </script>
+</body>
+</html>
