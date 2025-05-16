@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="save_user.php" method="POST">
+    <form action="" method="POST" onsubmit="saveUser();">
         <label for="">Username</label>
         <input type="text" name="username" id="username" required>
         <label for="">Password</label>
@@ -61,6 +61,24 @@
         function editUser(id){
 
         }
+
+        function saveUser(){
+            event.preventDefault(); // Prevent form submission
+            
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            
+            fetch("save_user.php", {
+                method: "POST",
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                }),
+            })
+            .then(response => response.json())
+            .then(status =>  fetchUsers())
+        }
+
         fetchUsers();
     </script>
 </body>
