@@ -76,7 +76,9 @@
                 }),
             })
             .then(response => response.json())
-            .then(status =>  fetchUsers())
+            .then(status => alert(status))
+            
+            fetchUsers()
         }
 
         fetchUsers();
