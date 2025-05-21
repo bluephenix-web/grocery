@@ -9,8 +9,16 @@
     <form action="" method="POST" onsubmit="saveUser();">
         <label for="">Username</label>
         <input type="text" name="username" id="username" required>
+        
         <label for="">Password</label>
         <input type="password" name="password" id="password" required>
+        
+        <label for="">Role</label>
+        <select name="role" id="role">
+            <option value="administrator">Administrator</option>
+            <option value="student">Student</option>
+        </select>
+
         <input type="submit" value="Submit">
     </form>
 
@@ -67,12 +75,15 @@
             
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
-            
+            //added
+            let role = document.getElementById("role").value;
+
             fetch("save_user.php", {
                 method: "POST",
                 body: JSON.stringify({
                     username: username,
-                    password: password
+                    password: password,
+                    role: role //added
                 }),
             })
             .then(response => response.json())
