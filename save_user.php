@@ -13,6 +13,12 @@
         VALUES ('$request->username','$cipher','$role')";
 
         $conn->query($sql);
+
+        $data = [
+            "status" => "success",
+            "user" => $request->username
+        ];
+        echo json_encode($data);
         
         // // DECRYPTION for login
         // // 12345

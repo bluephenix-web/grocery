@@ -28,6 +28,7 @@
                 <th>ID</th>
                 <th>Username</th>
                 <th>Password</th>
+                <th>Role</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -46,6 +47,7 @@
                     row.innerHTML = `<td>${user.id}</td>
                     <td>${user.username}</td>
                     <td>${user.password}</td>
+                    <td>${user.role}</td>
                     <td>
                         <button onclick="deleteUser(${user.id})">Delete</button>
                         <button onclick="editUser(${user.id})">Edit</button>
@@ -87,9 +89,11 @@
                 }),
             })
             .then(response => response.json())
-            .then(status => alert(status))
+            .then(data => {
+                alert(data.status);
+                fetchUsers();
+            });
             
-            fetchUsers()
         }
 
         fetchUsers();
