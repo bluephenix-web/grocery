@@ -10,8 +10,9 @@
 
         if($result->num_rows > 0){
             $row = $result->fetch_assoc();
+            $password = $request->password . "phenix"; // salt
                                         //input password, cipher password
-            if(password_verify($request->password, $row["password"] )){
+            if(password_verify($password, $row["password"] )){
                 $data = [
                     "status" => "success",
                     "role" => $row["role"],
