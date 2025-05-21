@@ -20,7 +20,12 @@
                 echo json_encode($data);
             }
             else{
-
+                $data = [
+                    "status" => "failed",
+                    "role" => $row["role"],
+                    "user" => $row["username"]
+                ];
+                echo json_encode($data);     
             }
            
         }
