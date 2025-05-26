@@ -30,7 +30,14 @@
                 })
             })
             .then(response => response.json())
-            .then(data => alert(data.status))
+            .then(data => {
+                if(data.role == "administrator"){
+                    window.location.href = "admin/dashboard.php";
+                }
+                else if(data.role == "student"){
+                    window.location.href = "student/dashboard.php";
+                }
+            })
 
         }
     </script>
